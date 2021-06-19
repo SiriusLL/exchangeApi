@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import "./App.css";
 import axios from "axios";
 import Backdrop from "./components/Backdrop";
+import Form from "./components/Form";
 
 function App() {
   const [exchangeData, setExchangeData] = useState();
-  const depthParam = "?symbol=BTCUSDT&limit=10";
-  const burl = "https://api.binance.com";
-  const query = `/api/v3/depth${depthParam}`;
-  const url = burl + query;
 
-  const getExchangeData = () => {
+  const getExchangeData = (base, limit) => {
+    console.log("base", base, "limit", limit);
+    const depthParam = `?symbol=${base}&limit=${limit}`;
+    const burl = "https://api.binance.com";
+    const query = `/api/v3/depth${depthParam}`;
+    const url = burl + query;
+
     axios.get(`${url}`).then((res) => {
       console.log("respons", res);
       // setExchangeData([JSON.stringify(res.data)]);
@@ -33,24 +36,27 @@ function App() {
   return (
     <div className="App">
       <h1>Binance Depth</h1>
-      <h4>Bids</h4>
-      {/* {exchangeData} */}
-      {/* {exchangeData && date(exchangeData.lastUpdateId)} */}
-      {!exchangeData ? (
-        <Backdrop />
-      ) : (
-        exchangeData.bids.map((element) => {
-          return <p>{element}</p>;
-        })
-      )}
-      <h4>Asks</h4>
-      {!exchangeData ? (
-        <Backdrop />
-      ) : (
-        exchangeData.asks.map((element) => {
-          return <p>{element}</p>;
-        })
-      )}
+      <div>
+        <h4>Bids</h4>
+        {/* {exchangeData} */}
+        {/* {exchangeData && date(exchangeData.lastUpdateId)} */}
+        {!exchangeData ? (
+          <Backdrop />
+        ) : (
+          exchangeData.bids.map((element) => {
+            return <p>{element}</p>;
+          })
+        )}
+        <h4>Asks</h4>
+        {!exchangeData ? (
+          <Backdrop />
+        ) : (
+          exchangeData.asks.map((element) => {
+            return <p>{element}</p>;
+          })
+        )}
+      </div>
+      <Form onClick={getExchangeData} />
       <button onClick={getExchangeData}>show me the data</button>
     </div>
   );
