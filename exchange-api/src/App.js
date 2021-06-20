@@ -6,6 +6,8 @@ import Form from "./components/Form";
 
 function App() {
   const [exchangeData, setExchangeData] = useState();
+  const [pair, setPair] = useState("");
+  const [price, setPrice] = useState(null);
 
   const getExchangeData = (base, limit) => {
     console.log("base", base, "limit", limit);
@@ -19,6 +21,17 @@ function App() {
       // setExchangeData([JSON.stringify(res.data)]);
       setExchangeData(res.data);
     });
+  };
+
+  const binanceSocket = new WebSocket(
+    "wss://stream.binance.com:9443/ws/btcusdt@trade"
+  );
+  console.log("ws", binanceSocket);
+  binanceSocket.onmessage = function (event) {
+    const messageObject = JSON.parse(event.data);
+    console.log(messageObject.s, messageObject.p);
+    setPair(messageObject.s);
+    setPrice(messageObject.p);
   };
 
   // const lastUpdated = exchangeData.lastUpdateId;
@@ -58,6 +71,9 @@ function App() {
       </div>
       <Form onClick={getExchangeData} />
       <button onClick={getExchangeData}>show me the data</button>
+      <br />
+      {pair}
+      {price}
     </div>
   );
 }
