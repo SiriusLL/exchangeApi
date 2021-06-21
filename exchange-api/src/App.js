@@ -9,7 +9,6 @@ import ApiV2 from "./components/ApiV2";
 function App() {
   return (
     <div className="App">
-      {/* <ApiV1 /> */}
       <ApiV2 />
     </div>
   );

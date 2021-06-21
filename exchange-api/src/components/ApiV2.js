@@ -6,16 +6,16 @@ const binance = new Binance().options({
   APISECRET: `${process.env.APISECRET_API_KEY}`,
 });
 
-const ticker = async () => {
-  let ticker = await binance.prices();
-  console.info(`Price of BTC: ${ticker.BTCUSDT}`);
-  return ticker.BTCUSDT;
-};
-
 const ApiV2 = () => {
+  const ticker = async () => {
+    let ticker = await binance.prices();
+    console.info(`Price of BTC: ${ticker.BTCUSDT}`);
+    console.log(await binance.futuresPrices());
+    return ticker.BTCUSDT;
+  };
   return (
     <div>
-      <h1>{ticker}</h1>;
+      <h1>hello{ticker}</h1>
     </div>
   );
 };
