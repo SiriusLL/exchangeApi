@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import HmacSHA512 from "crypto-js/hmac-sha512";
 import axios from "axios";
+// import HmacSHA512 from "crypto-js/hmac-sha512";
+const CryptoJS = require("crypto-js");
 
 const ApiV3 = () => {
   const [data, setData] = useState(null);
@@ -16,7 +17,7 @@ const ApiV3 = () => {
       akey: `${process.env.APIKEY_API_KEY}`,
       skey: `${process.env.APISECRET_API_KEY}`,
     };
-
+    console.log("aa", CryptoJS);
     const signature = CryptoJS.HmacSHA256(
       dataQueryString,
       keys["skey"]
@@ -24,13 +25,14 @@ const ApiV3 = () => {
 
     const url = `${burl}${endPoint}?${dataQueryString}&signature=${signature}`;
 
-    axios.get(`${url}`).then((res) => {
+    axios.get(`${url}`, { "X-MBX-APIKEY": keys["akey"] }).then((res) => {
       console.log("respons", res);
-      // setExchangeData([JSON.stringify(res.data)]);
-      setData(res.data);
+      setData([JSON.stringify(res.data)]);
+      // setData(res.data);
+      return;
     });
   };
-  return <>{data}</>;
+  return <>{getExchangeData}</>;
 };
 
 export default ApiV3;
