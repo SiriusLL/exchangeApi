@@ -72,8 +72,7 @@ function App() {
       <Form onClick={getExchangeData} />
       <button onClick={getExchangeData}>show me the data</button>
       <br />
-      {pair}
-      {price}
+      {pair}- {price}
     </div>
   );
 }
