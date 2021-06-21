@@ -22,16 +22,16 @@ const ApiV1 = () => {
     });
   };
 
-  const binanceSocket = new WebSocket(
-    "wss://stream.binance.com:9443/ws/btcusdt@trade"
-  );
-  console.log("ws", binanceSocket);
-  binanceSocket.onmessage = function (event) {
-    const messageObject = JSON.parse(event.data);
-    console.log(messageObject.s, messageObject.p);
-    setPair(messageObject.s);
-    setPrice(messageObject.p);
-  };
+  // const binanceSocket = new WebSocket(
+  //   "wss://stream.binance.com:9443/ws/btcusdt@trade"
+  // );
+  // console.log("ws", binanceSocket);
+  // binanceSocket.onmessage = function (event) {
+  //   const messageObject = JSON.parse(event.data);
+  //   console.log(messageObject.s, messageObject.p);
+  //   setPair(messageObject.s);
+  //   setPrice(messageObject.p);
+  // };
 
   // const lastUpdated = exchangeData.lastUpdateId;
   // console.log("lastUpdated", lastUpdated);
@@ -70,9 +70,9 @@ const ApiV1 = () => {
         )}
       </div>
       <Form onClick={getExchangeData} />
-      <button onClick={getExchangeData}>show me the data</button>
+      {/* <button onClick={getExchangeData}>show me the data</button> */}
       <br />
-      {pair}- {price}
+      {/* {pair}- {price} */}
     </div>
   );
 };

@@ -32,7 +32,12 @@ const ApiV3 = () => {
       return;
     });
   };
-  return <>{getExchangeData}</>;
+  return (
+    <>
+      <h2>{data}</h2>
+      <button onClick={getExchangeData}>click me</button>
+    </>
+  );
 };
 
 export default ApiV3;
