@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+require("dotenv").config();
 
 const ApiV2 = () => {
   const Binance = require("node-binance-api");
   const binance = new Binance().options({
-    APIKEY: "",
-    APISECRET: "",
+    APIKEY: `${process.env.APIKEY_API_KEY}`,
+    APISECRET: `${process.env.APISECRET_API_KEY}`,
   });
 
   let ticker = await binance.prices();
