@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+const chalk = require("chalk");
 require("dotenv").config();
 const Binance = require("node-binance-api");
 const binance = new Binance().options({
   APIKEY: `${process.env.APIKEY_API_KEY}`,
   APISECRET: `${process.env.APISECRET_API_KEY}`,
+  useServerTime: true,
 });
 
 const ApiV2 = () => {
